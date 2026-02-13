@@ -57,7 +57,7 @@
                             <a class="btn btn-secondary btn-square mx-1" href="#"><i class="fab fa-instagram"></i></a>
                         </div>
                         <div class="d-flex align-items-end justify-content-between border-top">
-                            <a href="" class="btn w-50 border-end">Download CV</a>
+                            <a href="#" id="" class="btn w-50 border-end">Download CV</a>
                             <a href="#contact" class="btn w-50 btn-scroll">Contact Me</a>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                                 <span class="fw-medium text-primary">Education:</span> Ha Noi University of science and technology
                             </div>
                             <div class="col-sm-6 py-1">
-                                <span class="fw-medium text-primary">Experience:</span> 4+ Years
+                                <span class="fw-medium text-primary">Experience:</span> 6+ Years
                             </div>
                             <div class="col-sm-6 py-1">
                                 <span class="fw-medium text-primary">Phone:</span> 0989738261
@@ -101,7 +101,7 @@
                         <div class="row g-4">
                             <div class="col-md-4 col-lg-6 col-xl-4">
                                 <div class="d-flex bg-secondary p-4">
-                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">4</h1>
+                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">6</h1>
                                     <div class="ps-3">
                                         <p class="mb-0">Years of</p>
                                         <h5 class="mb-0">Experience</h5>
@@ -191,10 +191,28 @@
                                         <div class="progress-bar bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
+                                <div class="skill mb-4">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-2">AWS Cloud</p>
+                                        <p class="mb-2">70%</p>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="skill mb-4">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-2">Firebase</p>
+                                        <p class="mb-2">65%</p>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div>
-                            Other: Firebase, Hexabase, Nodejs
+                            Other: Hexabase, Nodejs
                         </div>
                     </section>
                     <!-- Skills End -->
@@ -206,7 +224,13 @@
                             <div class="position-relative mb-4">
                                 <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
                                 <h5 class="mb-1">Web Developer</h5>
-                                <p class="mb-2">Freelancer | <small>01/2024 - Present</small></p>
+                                <p class="mb-2">Nowtas | <small>01/2025 - Present</small></p>
+                                <p>Analyze requirements, design, and develop the web system.</p>
+                            </div>
+                            <div class="position-relative mb-4">
+                                <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
+                                <h5 class="mb-1">Web Developer</h5>
+                                <p class="mb-2">Freelancer | <small>01/2024 - 2025</small></p>
                                 <p>Analyze requirements, design, and develop the web system.</p>
                             </div>
                             <div class="position-relative mb-4">
@@ -246,6 +270,12 @@
                                 <div class="service-item">
                                     <i class="fa fa-2x fa-laptop-code mx-auto mb-4"></i>
                                     <h5 class="mb-2">Web Developer</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="service-item">
+                                    <i class="fa fa-2x fa-mobile-alt mx-auto mb-4"></i>
+                                    <h5 class="mb-2">Mobile Developer</h5>
                                 </div>
                             </div>
                         </div>
@@ -552,5 +582,223 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+
+        <!-- jsPDF Library for PDF Generation -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+        <!-- CV Download Script -->
+        <script>
+            document.getElementById('downloadCV').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Use standard font to avoid font issues
+                doc.setFont('helvetica');
+                
+                // Colors
+                const primaryColor = [41, 128, 185]; // Professional blue
+                const grayColor = [100, 100, 100];
+                
+                let yPos = 20;
+                
+                // Add profile image
+                const img = new Image();
+                img.crossOrigin = 'Anonymous';
+                img.src = 'img/profile.jpg';
+                
+                img.onload = function() {
+                    // Profile image in circle (top right)
+                    doc.addImage(img, 'JPEG', 165, 15, 30, 30);
+                    
+                    generatePDFContent();
+                };
+                
+                img.onerror = function() {
+                    // If image fails to load, continue without it
+                    generatePDFContent();
+                };
+                
+                function generatePDFContent() {
+                    // Header background
+                    doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                    doc.rect(0, 0, 210, 50, 'F');
+                    
+                    // Name
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFontSize(24);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('NGUYEN VAN LAM', 15, 25);
+                    
+                    // Title
+                    doc.setFontSize(14);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text('Web Developer', 15, 35);
+                    
+                    // Contact info
+                    doc.setFontSize(9);
+                    doc.text('Email: nguyenvanlam1997ct@gmail.com', 15, 43);
+                    doc.text('Phone: 0989738261 | Ha Noi, Viet Nam', 15, 47);
+                    
+                    yPos = 60;
+                    
+                    // PROFILE
+                    doc.setTextColor(0, 0, 0);
+                    doc.setFontSize(12);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('PROFILE', 15, yPos);
+                    doc.setLineWidth(0.5);
+                    doc.setDrawColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                    doc.line(15, yPos + 1, 195, yPos + 1);
+                    
+                    yPos += 7;
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'normal');
+                    const profile = doc.splitTextToSize('Software engineer with 6+ years of experience developing web systems. Strong communication skills and ability to learn quickly. Specialized in PHP, Laravel, Vue.js, React.js, and AWS Cloud.', 175);
+                    doc.text(profile, 15, yPos);
+                    yPos += profile.length * 5 + 5;
+                    
+                    // SKILLS
+                    doc.setFontSize(12);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('TECHNICAL SKILLS', 15, yPos);
+                    doc.line(15, yPos + 1, 195, yPos + 1);
+                    yPos += 7;
+                    
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Backend:', 15, yPos);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text('PHP, Laravel, Nest.js, Node.js', 45, yPos);
+                    yPos += 5;
+                    
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Frontend:', 15, yPos);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text('JavaScript, Vue.js, React.js, Next.js', 45, yPos);
+                    yPos += 5;
+                    
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Cloud/DevOps:', 15, yPos);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text('AWS (EC2, S3, RDS, ECS), Firebase, Docker', 45, yPos);
+                    yPos += 5;
+                    
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Database:', 15, yPos);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text('MySQL, Redis, DynamoDB', 45, yPos);
+                    yPos += 8;
+                    
+                    // EXPERIENCE
+                    doc.setFontSize(12);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('WORK EXPERIENCE', 15, yPos);
+                    doc.line(15, yPos + 1, 195, yPos + 1);
+                    yPos += 7;
+                    
+                    const experiences = [
+                        { title: 'Web Developer', company: 'Nowtas', period: '01/2025 - Present' },
+                        { title: 'Web Developer', company: 'Freelancer', period: '01/2024 - 2025' },
+                        { title: 'Web Developer', company: 'Kiaisoft', period: '2023 - 2024' },
+                        { title: 'Web Developer', company: 'Haposoft', period: '2020 - 2023' }
+                    ];
+                    
+                    doc.setFontSize(10);
+                    experiences.forEach((exp, index) => {
+                        if (yPos > 270) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
+                        doc.setFont('helvetica', 'bold');
+                        doc.text(exp.title + ' - ' + exp.company, 15, yPos);
+                        doc.setFont('helvetica', 'normal');
+                        doc.setTextColor(grayColor[0], grayColor[1], grayColor[2]);
+                        doc.setFontSize(9);
+                        doc.text(exp.period, 15, yPos + 4);
+                        doc.setTextColor(0, 0, 0);
+                        doc.setFontSize(10);
+                        doc.text('- Analyze requirements, design and develop web systems', 15, yPos + 9);
+                        doc.text('- Database design and infrastructure setup', 15, yPos + 13);
+                        yPos += 20;
+                    });
+                    
+                    // EDUCATION
+                    if (yPos > 240) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                    
+                    doc.setFontSize(12);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('EDUCATION', 15, yPos);
+                    doc.line(15, yPos + 1, 195, yPos + 1);
+                    yPos += 7;
+                    
+                    doc.setFontSize(10);
+                    doc.text('Software Engineering', 15, yPos);
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(grayColor[0], grayColor[1], grayColor[2]);
+                    doc.setFontSize(9);
+                    doc.text('Ha Noi University of Science and Technology', 15, yPos + 4);
+                    doc.setTextColor(0, 0, 0);
+                    yPos += 12;
+                    
+                    // KEY PROJECTS
+                    doc.setFontSize(12);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('KEY PROJECTS', 15, yPos);
+                    doc.line(15, yPos + 1, 195, yPos + 1);
+                    yPos += 7;
+                    
+                    const projects = [
+                        { name: 'Psychological Counseling System', tech: 'Next.js, OpenAI API' },
+                        { name: 'Online English Learning', tech: 'Laravel, Vue.js, AWS, WebSocket' },
+                        { name: 'Job Search System', tech: 'Laravel, Vue.js, AWS (ECS, RDS)' },
+                        { name: 'IoT Monitoring System', tech: 'Laravel, Vue.js, Firebase, AWS' }
+                    ];
+                    
+                    doc.setFontSize(10);
+                    projects.forEach(project => {
+                        if (yPos > 270) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
+                        doc.setFont('helvetica', 'bold');
+                        doc.text('- ' + project.name, 15, yPos);
+                        doc.setFont('helvetica', 'normal');
+                        doc.setTextColor(grayColor[0], grayColor[1], grayColor[2]);
+                        doc.setFontSize(9);
+                        doc.text('Tech: ' + project.tech, 17, yPos + 4);
+                        doc.setTextColor(0, 0, 0);
+                        doc.setFontSize(10);
+                        yPos += 10;
+                    });
+                    
+                    // Footer
+                    const pageCount = doc.internal.getNumberOfPages();
+                    for (let i = 1; i <= pageCount; i++) {
+                        doc.setPage(i);
+                        doc.setFontSize(8);
+                        doc.setTextColor(grayColor[0], grayColor[1], grayColor[2]);
+                        doc.text('Page ' + i + ' of ' + pageCount, 105, 287, { align: 'center' });
+                    }
+                    
+                    // Save
+                    doc.save('NguyenVanLam_CV.pdf');
+                }
+                
+                // Trigger image load or generate if no image needed
+                if (!img.complete) {
+                    setTimeout(function() {
+                        if (!img.complete) {
+                            generatePDFContent();
+                        }
+                    }, 2000);
+                }
+            });
+        </script>
     </body>
 </html>
